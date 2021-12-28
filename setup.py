@@ -8,8 +8,8 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='pybit',
-    version='1.3.3',
-    description='Python3 Bybit HTTP/WebSocket API Connector', 
+    version='1.3.3-dev',
+    description='Python3 Bybit HTTP/WebSocket API Connector',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/verata-veritatis/pybit',
@@ -33,5 +33,5 @@ setup(
         'requests',
         'websocket-client',
         'websockets'
-    ], 
+    ],
 )
