@@ -18,10 +18,10 @@ class WebSocket:
         websocket.enableTrace(True)
         self.ws = websocket.WebSocketApp(
             "wss://stream.bytick.com/realtime",
-            on_open=self._on_open(self.ws),
+            on_open=self._on_open,
             on_message=self._on_message,
             on_error=self._on_error,
-            on_close=self._on_close(self.ws),
+            on_close=self._on_close,
         )
         # Setup the thread running WebSocketApp.
         self.wst = threading.Thread(target=lambda: self.ws.run_forever(
@@ -35,23 +35,19 @@ class WebSocket:
     def orderbook(self):
         return self.data.get('orderBook_200.100ms.BTCUSD')
 
-    @staticmethod
     def _on_message(self, message):
         m = json.loads(message)
         if 'topic' in m and m.get('topic') == 'orderBook_200.100ms.BTCUSD' and m.get('type') == 'snapshot':
             print('Hi!')
             self.data[m.get('topic')] = m.get('data')
 
-    @staticmethod
     def _on_error(self, error):
         print(error)
 
-    @staticmethod
-    def _on_close(ws):
-        print("### closed ###")
+    def _on_close(self, ws):
+        print(f"### closed {ws} ###")
 
-    @staticmethod
-    def _on_open(ws):
+    def _on_open(self, ws):
         print('Submitting subscriptions...')
         ws.send(json.dumps({
             'op': 'subscribe',
