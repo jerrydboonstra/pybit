@@ -2424,17 +2424,17 @@ class WebSocket:
             self._reset()
             self._connect(self.endpoint)
 
-    def _on_open(self, ws=None):
+    def _on_open(self, ws):
         """
         Log WS open.
         """
         self.logger.debug(f'WebSocket {self.wsName} opened.')
 
-    def _on_close(self, code=None, msg=None):
+    def _on_close(self, code, msg):
         """
         Log WS close.
         """
-        self.logger.debug(f'WebSocket {self.wsName} closed.')
+        self.logger.debug(f'WebSocket {self.wsName} closed with status_code={code} message={msg}')
 
     def _reset(self):
         """
