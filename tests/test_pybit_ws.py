@@ -59,3 +59,4 @@ class WebSocketTest(unittest.TestCase):
             local_ws.orderbook(),
             []
         )
+        # local_ws.exit()
