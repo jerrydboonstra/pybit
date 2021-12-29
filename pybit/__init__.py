@@ -2111,8 +2111,8 @@ class WebSocket:
         self.ws = websocket.WebSocketApp(
             url=url,
             on_message=lambda ws, msg: self._on_message(msg),
-            on_close=lambda ws, msg: self._on_close(),
-            on_open=lambda ws: self._on_open(),
+            on_close=lambda ws, code, msg: self._on_close(code, msg),
+            on_open=lambda ws: self._on_open(ws),
             on_error=lambda ws, err: self._on_error(err)
         )
 
@@ -2424,13 +2424,13 @@ class WebSocket:
             self._reset()
             self._connect(self.endpoint)
 
-    def _on_open(self):
+    def _on_open(self, ws=None):
         """
         Log WS open.
         """
         self.logger.debug(f'WebSocket {self.wsName} opened.')
 
-    def _on_close(self):
+    def _on_close(self, code=None, msg=None):
         """
         Log WS close.
         """
