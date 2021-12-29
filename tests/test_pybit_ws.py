@@ -16,46 +16,6 @@ ws = WebSocket('wss://stream.bybit.com/realtime', subscriptions=['instrument_inf
 
 
 class WebSocketExample:
-    """
-    on_open: function
-        Callback object which is called at opening websocket.
-        on_open has one argument.
-        The 1st argument is this class object.
-    on_message: function
-        Callback object which is called when received data.
-        on_message has 2 arguments.
-        The 1st argument is this class object.
-        The 2nd argument is utf-8 data received from the server.
-    on_error: function
-        Callback object which is called when we get error.
-        on_error has 2 arguments.
-        The 1st argument is this class object.
-        The 2nd argument is exception object.
-    on_close: function
-        Callback object which is called when connection is closed.
-        on_close has 3 arguments.
-        The 1st argument is this class object.
-        The 2nd argument is close_status_code.
-        The 3rd argument is close_msg.
-    on_cont_message: function
-        Callback object which is called when a continuation
-        frame is received.
-        on_cont_message has 3 arguments.
-        The 1st argument is this class object.
-        The 2nd argument is utf-8 string which we get from the server.
-        The 3rd argument is continue flag. if 0, the data continue
-        to next frame data
-    on_data: function
-        Callback object which is called when a message received.
-        This is called before on_message or on_cont_message,
-        and then on_message or on_cont_message is called.
-        on_data has 4 argument.
-        The 1st argument is this class object.
-        The 2nd argument is utf-8 string which we get from the server.
-        The 3rd argument is data type. ABNF.OPCODE_TEXT or ABNF.OPCODE_BINARY will be came.
-        The 4th argument is continue flag. If 0, the data continue
-    """
-
     def __init__(self):
         self.data = {}
 
@@ -78,6 +38,11 @@ class WebSocketExample:
 
     def orderbook(self):
         return self.data.get('orderBook_200.100ms.BTCUSD')
+
+    # on_message=lambda ws, msg: self._on_message(msg),
+    # on_close=self._on_close(),    # on_close=lambda ws, code, msg: self._on_close(code, msg),
+    # on_open=self._on_open(),      # on_open=lambda ws: self._open(),
+    # on_error=lambda ws, err: self._on_error(err)
 
     # noinspection PyUnusedLocal
     def _on_message(self, our_ws, message):

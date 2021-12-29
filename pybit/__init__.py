@@ -2111,8 +2111,8 @@ class WebSocket:
         self.ws = websocket.WebSocketApp(
             url=url,
             on_message=lambda ws, msg: self._on_message(msg),
-            on_close=self._on_close(),
-            on_open=self._on_open(),
+            on_close=lambda ws, msg: self._on_close(),
+            on_open=lambda ws: self._on_open(),
             on_error=lambda ws, err: self._on_error(err)
         )
 
