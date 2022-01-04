@@ -1770,7 +1770,7 @@ class HTTP:
 
             # Log the request.
             if self.log_requests:
-                self.logger.debug(f'Request -> {method} {path}: {req_params}')
+                self.logger.debug('Request -> %s %s: %s', method, path, req_params)
 
             # Prepare request; use 'params' for GET and 'data' for POST.
             if method == 'GET':
@@ -1812,7 +1812,7 @@ class HTTP:
                 requests.exceptions.ConnectionError
             ) as e:
                 if self.force_retry:
-                    self.logger.error(f'{e}. {retries_remaining}')
+                    self.logger.error('%s. %s', e, retries_remaining)
                     time.sleep(self.retry_delay)
                     continue
                 else:
@@ -1825,7 +1825,7 @@ class HTTP:
             # If we have trouble converting, handle the error and retry.
             except JSONDecodeError as e:
                 if self.force_retry:
-                    self.logger.error(f'{e}. {retries_remaining}')
+                    self.logger.error('%s. %s', e, retries_remaining)
                     time.sleep(self.retry_delay)
                     continue
                 else:
@@ -1859,8 +1859,9 @@ class HTTP:
                     # and retry.
                     elif s_json['ret_code'] == 10006:
                         self.logger.error(
-                            f'{error_msg}. Ratelimited on current request. '
-                            f'Sleeping, then trying again. Request: {path}'
+                            '%s. Ratelimited on current request. '
+                            'Sleeping, then trying again. Request: %s',
+                            error_msg, path
                         )
 
                         # Calculate how long we need to wait.
@@ -1875,7 +1876,7 @@ class HTTP:
                         )
 
                     # Log the error.
-                    self.logger.error(f'{error_msg}. {retries_remaining}')
+                    self.logger.error('%s. %s', error_msg, retries_remaining)
                     time.sleep(err_delay)
                     continue
 
