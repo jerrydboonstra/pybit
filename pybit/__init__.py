@@ -1834,7 +1834,7 @@ class HTTP:
                         message='Conflict. Could not decode JSON.',
                         status_code=409,
                         time=dt.utcnow().strftime("%H:%M:%S")
-                    )
+                    ) from e
 
             # If Bybit returns an error, raise.
             if s_json['ret_code']:
