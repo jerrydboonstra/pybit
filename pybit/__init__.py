@@ -19,13 +19,11 @@ import time
 import hmac
 import json
 import logging
-import threading
-import requests
-import websocket
 
 from datetime import datetime as dt
 from concurrent.futures import ThreadPoolExecutor
 
+import requests
 from .exceptions import FailedRequestError, InvalidRequestError
 
 # Requests will use simplejson if available.
