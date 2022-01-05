@@ -15,13 +15,11 @@ API_SECRET = os.environ.get('BYBIT_API_SECRET', '')
 def instrument_info_callback(message):
     logger.debug(f"instrument_info_callback()")
     logger.info(message)
-    pass
 
 
 def orderbook_callback(message):
     logger.debug(f"orderbook_callback()")
     logger.info(message)
-    pass
 
 
 def position_callback(message):
