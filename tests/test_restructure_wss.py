@@ -38,7 +38,8 @@ class HTTPTest(unittest.TestCase):
     def test_instrument_info(self):
         # given
         usdt_public_ws = usdt_perpetual.PublicWebSocket("wss://stream.bybit.com/realtime_public")
-        usdt_public_ws.custom_topic_stream("instrument_info.100ms.BTCUSDT", instrument_info_callback)
+        usdt_public_ws.custom_topic_stream("instrument_info.100ms.BTCUSDT",
+                                           instrument_info_callback)
 
         # when then
         self.sleep_loop(5)
@@ -54,8 +55,9 @@ class HTTPTest(unittest.TestCase):
 
     def test_position_callback(self):
         # given
-        usdt_private_ws = usdt_perpetual.PrivateWebSocket("wss://stream-testnet.bybit.com/realtime_private",
-                                                          api_key=API_KEY, api_secret=API_SECRET)
+        usdt_private_ws = usdt_perpetual.PrivateWebSocket(
+            "wss://stream-testnet.bybit.com/realtime_private",
+            api_key=API_KEY, api_secret=API_SECRET)
         usdt_private_ws.position_stream(position_callback)
 
         # when then
