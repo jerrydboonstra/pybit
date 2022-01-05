@@ -1,20 +1,14 @@
 description: Build and Deploy our artifact to Google Artifacts
-filename: package/cloudbuild.yaml
-#triggerTemplate:
-#  branchName: ^develop_restructure_wss$
-#  projectId: tradingwebsockets
-#  repoName: tradingviewbybit-mirror
-
-github:
-  name: pybit
-  owner: jerrydboonstra
-  push:
-    branch: ^develop_restructure_wss$
-
+filename: cloudbuild.yaml
 includedFiles:
-  - package/setup.py
+  - setup.py
 name: upload-package
 substitutions:
   _REGION: us-central1
   _REPO: mypypi
   _GOOGLE_CLOUD_PROJECT: tradingwebsockets
+triggerTemplate:
+  branchName: ^develop_restructure_wss$
+  invertRegex: true
+  projectId: tradingwebsockets
+  repoName: github_jerrydboonstra_pybit
