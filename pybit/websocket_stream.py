@@ -185,9 +185,8 @@ class FuturesWebSocketManager(WebSocketManager):
                     raise Exception(json.dumps(message))
                 else:
                     logger.debug('Got response success==True: %s', json.dumps(message))
-
         else:
-            raise Exception('Unknown error: empty message dict')
+            raise Exception('Unknown error: empty message or not dict: %s', message)
 
     def custom_topic_stream(self, topic, callback):
         return self._subscribe(topic=topic, callback=callback)
