@@ -128,6 +128,7 @@ class WebSocketManager:
 
         # Reconnect.
         if self.handle_error:
+            logger.debug("Reconnecting WebSocket %s", self.ws_name)
             self._reset()
             self._connect(self.endpoint)
 
@@ -173,10 +174,20 @@ class FuturesWebSocketManager(WebSocketManager):
         )
         self.callback_directory[topic] = callback
 
-    def _handle_incoming_message(self, message):
-        topic = message["topic"]
-        callback_function = self.callback_directory[topic]
-        callback_function(message)
+    def _handle_incoming_message(self, message: dict):
+        if isinstance(message, dict) and message:
+            if 'topic' in message:
+                topic = message["topic"]
+                callback_function = self.callback_directory[topic]
+                callback_function(message)
+            elif 'success' in message:
+                if not message['success']:
+                    raise Exception(json.dumps(message))
+                else:
+                    logger.debug('Got response success==True: %s', json.dumps(message))
+
+        else:
+            raise Exception('Unknown error: empty message dict')
 
     def custom_topic_stream(self, topic, callback):
         return self._subscribe(topic=topic, callback=callback)
