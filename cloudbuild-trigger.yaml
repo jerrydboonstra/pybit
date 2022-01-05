@@ -8,7 +8,7 @@ substitutions:
   _REPO: mypypi
   _GOOGLE_CLOUD_PROJECT: tradingwebsockets
 triggerTemplate:
-  branchName: ^develop_restructure_wss$
+  branchName: ^develop_restructure_wss_cloudbuild$
   invertRegex: true
   projectId: tradingwebsockets
   repoName: github_jerrydboonstra_pybit
